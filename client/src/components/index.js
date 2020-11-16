@@ -5,6 +5,7 @@ import ToolBar from './ToolBar';
 import Grid from './Grid';
 import Text from './Text';
 import Input from './Input';
+import Alert from './Alert';
 
 export {
   Button,
@@ -12,5 +13,6 @@ export {
   Grid,
   ToolBar,
   Text,
-  Input
+  Input,
+  Alert
 };

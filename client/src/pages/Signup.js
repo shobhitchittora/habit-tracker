@@ -1,11 +1,12 @@
 import './Page.css';
-import { Input, Grid, Button } from '../components';
+import { Input, Grid, Button, Alert } from '../components';
 import { useState } from 'react';
 
 function Signup() {
   const [name, updateName] = useState('');
   const [email, updateEmail] = useState('');
   const [password, updatePassword] = useState('');
+  const [error, updateError] = useState({ message: '' });
 
   const handleName = (e) => {
     if (e.target) {
@@ -23,8 +24,39 @@ function Signup() {
     }
   }
 
-  const handleSubmit = (e) => {
+  const validateForm = () => {
+    return null;
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const { error } = validateForm();
+
+    if(error){
+      updateError(error);
+      return;
+    }
+    const data = {
+      name,
+      email,
+      password
+    }
+
+    const response = await fetch('/signup', {
+      method: 'POST',
+      mode: 'cors', 
+      cache: 'no-cache', 
+      credentials: 'same-origin', 
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      redirect: 'follow',
+      body: JSON.stringify(data)
+    }).json();
+
+    if(response.ok){
+      console.log(response);
+    }
   }
 
   return (
@@ -35,6 +67,10 @@ function Signup() {
           justify="center"
           alignItems="center"
         >
+
+          {
+            error && error.message && <Alert type="error" text="Alert message" />
+          }
           <Input value={name} onChange={handleName} placeholder={'Name'} type="text" />
           <Input value={email} onChange={handleEmail} placeholder={'Email'} type="email" />
           <Input value={password} onChange={handlePassword} placeholder={'Password'} type="password" />

@@ -6,6 +6,9 @@
   margin: 8px 0px;
   font-size: inherit;
   border: none;
+  cursor: pointer;
+  background-color: #004ba0;
+  color: white;
 }
 
 .Button-large{

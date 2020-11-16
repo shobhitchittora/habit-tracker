@@ -1,0 +1,22 @@
+.Alert-container {
+  border: 1px solid;
+  min-width: 10vw;
+  min-height: 30px;
+  outline: none;
+  margin: 8px 0px;
+  font-size: inherit;
+  text-align: center;
+  width: 100%;
+}
+
+.Alert-warning {
+  border-color: #e5da3f;
+}
+
+.Alert-error {
+  border-color: #e51822;
+}
+
+.Alert-info {
+  border-color: #004ba0;
+}
