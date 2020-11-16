@@ -4,7 +4,8 @@
   "description": "Designing and building a habit tracker",
   "main": "index.js",
   "scripts": {
-    "start": "node server/index.js"
+    "start": "node server",
+    "api": "node api-serv"
   },
   "repository": {
     "type": "git",
