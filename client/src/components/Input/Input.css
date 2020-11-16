@@ -1,0 +1,13 @@
+.Input{
+  min-width: 30vw;
+  min-height: 30px;
+  padding: 8px 16px;
+  outline: none;
+  border: 1px solid lightgray;
+  margin: 8px 0px;
+  font-size: inherit;
+}
+
+.Input:focus{
+  outline: none;
+}

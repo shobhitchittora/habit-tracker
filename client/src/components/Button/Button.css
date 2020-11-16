@@ -1,0 +1,13 @@
+.Button {
+  min-width: 10vw;
+  min-height: 30px;
+  padding: 10px 16px;
+  outline: none;
+  margin: 8px 0px;
+  font-size: inherit;
+  border: none;
+}
+
+.Button-large{
+  width: 100%
+}

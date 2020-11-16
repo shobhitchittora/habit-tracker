@@ -9,6 +9,14 @@ const ASSET_PATH = path.join(__dirname, '../client/build');
 
 app.use(express.static(ASSET_PATH));
 
+app.use(function attachRender(_, res, next) {
+  res.render = function renderer() {
+    res.sendFile(path.join(ASSET_PATH, 'index.html'));
+  }
+  next();
+});
+
+
 if (routes) {
   Object.keys(routes).forEach((route) => {
     app.use(`/${route}`, routes[route]);
@@ -16,7 +24,7 @@ if (routes) {
 }
 
 app.get('*', function (_, res) {
-  res.sendFile(path.join(ASSET_PATH, 'index.html'));
+  res.render();
 });
 
 app.listen(APP_PORT, () => {

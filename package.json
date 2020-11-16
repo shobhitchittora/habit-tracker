@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/shobhitchittora/habit-tracker/issues"
   },
-  "homepage": "https://github.com/shobhitchittora/habit-tracker#readme"
+  "homepage": "https://github.com/shobhitchittora/habit-tracker#readme",
+  "dependencies": {
+    "pm2": "^4.5.0"
+  }
 }

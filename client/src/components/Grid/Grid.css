@@ -1,0 +1,9 @@
+.Grid-container {
+  display: flex;
+  width: fit-content;
+  margin: auto;
+}
+
+.Grid-item {
+  display: flex;
+}
