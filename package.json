@@ -1,0 +1,20 @@
+{
+  "name": "habit-tracker",
+  "version": "1.0.0",
+  "description": "Designing and building a habit tracker",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shobhitchittora/habit-tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shobhitchittora/habit-tracker/issues"
+  },
+  "homepage": "https://github.com/shobhitchittora/habit-tracker#readme"
+}
