@@ -41,19 +41,19 @@ app.use((req, res, next) => {
   next();
 });
 
-const authCheck = (req, res, next) => {
-  if (req.session.user && req.cookies.session_id) {
-    res.redirect('/today');
-  } else {
-    next();
-  }
-};
+// const authCheck = (req, res, next) => {
+//   if (req.session.user && req.cookies.session_id) {
+//     res.redirect('/today');
+//   } else {
+//     next();
+//   }
+// };
 
 
 // Protected Routes
 if (routes) {
   Object.keys(routes).forEach((route) => {
-    app.use(`/${route}`, authCheck, routes[route]);
+    app.use(`/${route}`, routes[route]);
   });
 }
 

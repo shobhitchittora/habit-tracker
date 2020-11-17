@@ -64,7 +64,6 @@ function Login() {
       });
 
       let { from } = location.state || { from: { pathname: "/" } };
-      console.log(from);
       history.replace(from);
      
     } catch(e){

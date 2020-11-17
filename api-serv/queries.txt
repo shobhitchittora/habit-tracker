@@ -90,3 +90,12 @@ SET DEFAULT (now() at TIME ZONE 'utc')
 // SELECT user
 
 SELECT * FROM users WHERE email = 'sc@mail.com';
+
+
+// Tags
+
+INSERT INTO tags ( title, color ) VALUES ('Misc' , 'f44336');
+INSERT INTO tags ( title, color ) VALUES ('Personal' , '03a9f4');
+INSERT INTO tags ( title, color ) VALUES ('Work' , '4caf50');
+INSERT INTO tags ( title, color ) VALUES ('Shopping' , 'ffc107');
+INSERT INTO tags ( title, color ) VALUES ('Finance' , '9e9e9e');
