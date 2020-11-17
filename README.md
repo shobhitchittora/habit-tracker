@@ -58,4 +58,4 @@ internal API server, which connects to the DB and does other processing.
 
 ## Hosting
 
-The web-server and the api-server are hosted on heroku - https://hobby-lobby.herokuapp.com/
+The DB ( postgres ) are hosted on heroku.
