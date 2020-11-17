@@ -1,7 +1,9 @@
-const { Client } = require('pg');
+const { Pool } = require('pg');
 
 
 const connect = () => {
+  const pool = new Pool();
+
   const client = new Client({
     connectionString: process.env.POSTGRES_URL,
     ssl: {

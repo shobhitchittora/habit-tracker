@@ -1,11 +1,29 @@
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 const routes = require('./routes');
 
-const app = express();
 
 const APP_PORT = process.env.PORT || 8080;
 const ASSET_PATH = path.join(__dirname, '../client/build');
+
+const app = express();
+
+app.use(bodyParser.json());
+
+app.use(cookieParser());
+
+app.use(session({
+    key: 'session_id',
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        expires: 600000
+    }
+}));
 
 app.use(express.static(ASSET_PATH));
 
@@ -15,6 +33,14 @@ app.use(function attachRender(_, res, next) {
   }
   next();
 });
+
+// var sessionChecker = (req, res, next) => {
+//   if (req.session.user && req.cookies.session_id) {
+//       res.redirect('/today');
+//   } else {
+//       next();
+//   }    
+// };
 
 
 if (routes) {

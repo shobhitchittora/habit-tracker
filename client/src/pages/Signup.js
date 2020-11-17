@@ -25,14 +25,14 @@ function Signup() {
   }
 
   const validateForm = () => {
-    return null;
+    return { error: null };
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { error } = validateForm();
 
-    if(error){
+    if (error) {
       updateError(error);
       return;
     }
@@ -44,9 +44,9 @@ function Signup() {
 
     const response = await fetch('/signup', {
       method: 'POST',
-      mode: 'cors', 
-      cache: 'no-cache', 
-      credentials: 'same-origin', 
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -54,7 +54,7 @@ function Signup() {
       body: JSON.stringify(data)
     }).json();
 
-    if(response.ok){
+    if (response.ok) {
       console.log(response);
     }
   }

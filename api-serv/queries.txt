@@ -1,0 +1,92 @@
+// Tags
+CREATE TABLE tags ( 
+	tag_id serial PRIMARY KEY,
+	title VARCHAR(50) UNIQUE NOT NULL,
+	color VARCHAR(10) UNIQUE NOT NULL
+);
+
+// Users
+CREATE TABLE users ( 
+      user_id serial PRIMARY KEY,
+      name VARCHAR ( 50 ) UNIQUE NOT NULL,
+      password VARCHAR ( 50 ) NOT NULL,
+      email VARCHAR ( 255 ) UNIQUE NOT NULL,
+      created_on TIMESTAMP NOT NULL
+);
+
+
+
+// habits
+CREATE TABLE habits (
+	habit_id serial PRIMARY KEY,
+	user_id INT,
+	tag_id INT,
+	title VARCHAR(50) NOT NULL,
+	recurrence JSONB NOT NULL,
+	description VARCHAR(200),
+	status VARCHAR(1) NOT NULL,
+	last_completed TIMESTAMP,
+	
+	CONSTRAINT fk_habit_user_id
+      FOREIGN KEY(user_id) 
+	  REFERENCES users(user_id)
+	  ON DELETE CASCADE,
+	
+	CONSTRAINT fk_habit_tag_id
+      FOREIGN KEY(tag_id) 
+	  REFERENCES tags(tag_id)
+);
+
+
+// Journal
+CREATE TABLE journal (
+	note_id serial PRIMARY KEY,
+	habit_id INT,
+	time_created TIMESTAMP NOT NULL,
+	
+	CONSTRAINT fk_journal
+		FOREIGN KEY (habit_id)
+	REFERENCES habits(habit_id)
+	ON DELETE CASCADE
+);
+
+// Activities
+CREATE TABLE activities (
+	activity_id serial PRIMARY KEY,
+	habit_id INT,
+	time_log TIMESTAMP NOT NULL,
+	
+	CONSTRAINT fk_activities
+		FOREIGN KEY (habit_id)
+	REFERENCES habits(habit_id)
+	ON DELETE CASCADE
+);
+
+
+
+// Insert User 
+
+INSERT INTO users ( 	 
+      name,
+      password,
+      email,
+      created_on
+) 
+VALUES (
+	'Shobhit',
+	'passcode',
+	'sc@mail.com',
+	DEFAULT
+)
+
+
+// Alter TABLE
+
+ALTER TABLE users
+ALTER COLUMN created_on
+SET DEFAULT (now() at TIME ZONE 'utc')
+
+
+// SELECT user
+
+SELECT * FROM users WHERE email = 'sc@mail.com';
