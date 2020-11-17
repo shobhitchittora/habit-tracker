@@ -4,8 +4,10 @@
   "description": "Designing and building a habit tracker",
   "main": "index.js",
   "scripts": {
-    "start": "node server",
-    "api": "node api-serv"
+    "serv": "node server",
+    "api": "node api-serv",
+    "start": "concurrently --kill-others \"(cd api-serv && node index.js);\" \"(cd server && node index.js);\"",
+    "postinstall": "(cd api-serv && npm install); (cd client && npm install); (cd server && npm install)"
   },
   "repository": {
     "type": "git",
@@ -20,5 +22,8 @@
   "homepage": "https://github.com/shobhitchittora/habit-tracker#readme",
   "dependencies": {
     "pm2": "^4.5.0"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0"
   }
 }
