@@ -1,8 +1,18 @@
 import './Page.css';
 import { Input, Grid, Button, Alert } from '../components';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import AppContext from '../AppContext';
+import {
+  useHistory,
+  useLocation
+} from "react-router-dom";
 
 function Login() {
+
+  const [_,setContext] = useContext(AppContext);
+  const history = useHistory();
+  const location = useLocation();
+
   const [email, updateEmail] = useState('');
   const [password, updatePassword] = useState('');
   const [error, updateError] = useState({ message: '' });
@@ -35,20 +45,30 @@ function Login() {
       password
     }
 
-    const response = await fetch('/login', {
-      method: 'POST',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      redirect: 'follow',
-      body: JSON.stringify(data)
-    }).json();
+    try {
+      const response = await fetch('/login', {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        redirect: 'follow',
+        body: JSON.stringify(data)
+      }).then(res => res.json());
 
-    if (response.ok) {
-      console.log(response);
+      setContext({
+        isLoggedIn: true,
+        user: response.payload
+      });
+
+      let { from } = location.state || { from: { pathname: "/" } };
+      console.log(from);
+      history.replace(from);
+     
+    } catch(e){
+      console.log(e);
     }
   }
 

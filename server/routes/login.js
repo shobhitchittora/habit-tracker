@@ -15,11 +15,17 @@ LoginRouter.post('/', function LogInPostHandler(req, res) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password }),
   })
-    .then(res => res.json())
-    .then(json => console.log(json))
-    .catch(e => console.error(e));
+    .then(result => result.json())
+    .then(result => {
+      if(result && result.user){
+        req.session.user = result.user;
+        res.send({ error: null, isLoggedIn: true, payload: result.user });
+      }
+    })
+    .catch(e => {
+      res.status(500).json({ error: 'Something went wrong!' });
+    });
 
-  res.end();
 });
 
 module.exports = LoginRouter;

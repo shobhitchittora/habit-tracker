@@ -6,7 +6,7 @@ async function getUser(query, data) {
     }
 
     const values = [email, password];
-    query('SELECT * FROM users WHERE email=$1 AND password=$2', values, (error, result) => {
+    query('SELECT user_id FROM users WHERE email=$1 AND password=$2', values, (error, result) => {
       if (error) {
         reject({ error });
       }

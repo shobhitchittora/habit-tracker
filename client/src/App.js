@@ -1,3 +1,6 @@
+import { useContext, useState } from 'react';
+import AppContext, { DEFAULT_APP_CONTEXT } from './AppContext';
+import AuthRoute from './AuthRoute';
 import './App.css';
 import { ToolBar, Grid, Text } from './components';
 import {
@@ -16,46 +19,55 @@ import {
   Link
 } from "react-router-dom";
 
-function App({ isLoggedIn = false }) {
+
+function App() {
+  const [context, setContext] = useState(DEFAULT_APP_CONTEXT);
+
   return (
-    <div className="App">
-      <Router>
+    <AppContext.Provider value={[context, setContext]}>
+      <div className="App">
+        <Router>
 
-        <Header isLoggedIn={isLoggedIn} />
+          <Header />
 
-        <Switch>
-          <Route exact path="/">
-            <HomePage />
-          </Route>
-          <Route path="/login">
-            <LoginPage />
-          </Route>
-          <Route path="/signup">
-            <SignupPage />
-          </Route>
-          {
-            isLoggedIn && <>
-              <Route path="/journal">
-                <JournalPage />
-              </Route>
-              <Route path="/today">
-                <TodayPage />
-              </Route>
+          <Switch>
+            <Route exact path="/">
+              <HomePage />
 
-            </>
-          }
-          <Route path="*">
-            <NotFound />
-          </Route>
-        </Switch>
+            </Route>
+            <Route exact path="/login">
+              <LoginPage />
+            </Route>
 
-      </Router>
-    </div>
+            <Route exact path="/signup">
+              <SignupPage />
+            </Route>
+
+            <AuthRoute exact path="/journal">
+              <JournalPage />
+            </AuthRoute>
+
+            <AuthRoute exact path="/today">
+              <TodayPage />
+            </AuthRoute>
+
+            <Route path="*">
+              <NotFound />
+            </Route>
+          </Switch>
+
+        </Router>
+      </div>
+    </AppContext.Provider>
   );
 }
 
 
-function Header({ isLoggedIn }) {
+function Header() {
+
+  const [context] = useContext(AppContext);
+  const { isLoggedIn } = context;
+
   return (
     <ToolBar>
       <Grid
@@ -80,8 +92,14 @@ function Header({ isLoggedIn }) {
             </>
           }
 
-          <Text> <Link to="/login">Login</Link> </Text>
-          <Text> <Link to="/signup">Signup</Link> </Text>
+          {
+            !isLoggedIn &&
+            <>
+              <Text> <Link to="/login">Login</Link> </Text>
+              <Text> <Link to="/signup">Signup</Link> </Text>
+            </>
+          }
+
         </Grid>
       </Grid>
 

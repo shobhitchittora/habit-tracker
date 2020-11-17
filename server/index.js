@@ -16,13 +16,13 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use(session({
-    key: 'session_id',
-    secret: 'secret',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        expires: 600000
-    }
+  key: 'session_id',
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    expires: 600000
+  }
 }));
 
 app.use(express.static(ASSET_PATH));
@@ -34,18 +34,26 @@ app.use(function attachRender(_, res, next) {
   next();
 });
 
-// var sessionChecker = (req, res, next) => {
-//   if (req.session.user && req.cookies.session_id) {
-//       res.redirect('/today');
-//   } else {
-//       next();
-//   }    
-// };
+app.use((req, res, next) => {
+  if (req.cookies.session_id && !req.session.user) {
+    res.clearCookie('session_id');
+  }
+  next();
+});
+
+const authCheck = (req, res, next) => {
+  if (req.session.user && req.cookies.session_id) {
+    res.redirect('/today');
+  } else {
+    next();
+  }
+};
 
 
+// Protected Routes
 if (routes) {
   Object.keys(routes).forEach((route) => {
-    app.use(`/${route}`, routes[route]);
+    app.use(`/${route}`, authCheck, routes[route]);
   });
 }
 
